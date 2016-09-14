@@ -1,0 +1,254 @@
+﻿.net微信公众号开发——群发消息
+作者：王先荣
+本文将介绍微信公众号开发中用于群发消息的类MassMessage，包括：（1）MassMessage类；（2）群发；（3）删除；（4）预览；（5）查询发送状态；（6）接收推送群发结果事件。
+源代码地址：http://git.oschina.net/xrwang2/xrwang.weixin.PublicAccount/tree/master/PublicAccount/MassMessage
+演示地址：http://www.xrwang.net/Example/MassMessage.aspx
+
+1 MassMessage类
+MassMessage静态类封装了群发消息相关的方法，如下表：
+群发 Send
+删除 Delete
+预览 Preview
+查询发送状态 GetStatus
+
+2 群发
+公众号可以按用户分组群发消息，也可以按用户的OpenId列表来群发群发消息。
+2.1 按用户分组群发消息
+方法定义如下：
+        /// <summary>
+        /// 根据分组群发消息
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="isToAll">是否群发给所有用户</param>
+        /// <param name="groupId">如果群发给所有用户，忽略该参数；否则群发给该组中的用户</param>
+        /// <param name="messageType">群发消息类型</param>
+        /// <param name="mediaIdOrContent">多媒体id或者文本内容</param>
+        /// <param name="errorMessage">返回发送是否成功</param>
+        /// <returns>如果发送成功，返回消息ID；否则，返回-1。</returns>
+        public static long Send(string userName, bool isToAll, string groupId, MassMessageTypeEnum messageType, string mediaIdOrContent, out ErrorMessage errorMessage)
+使用示例如下：
+    /// <summary>
+    /// 按分组群发消息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnSendToGroup_Click(object sender, EventArgs e)
+    {
+        if (rblGroup.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            ErrorMessage errorMessage;
+            bool isToAll = string.IsNullOrWhiteSpace(rblGroup.SelectedValue);
+            string groupId = isToAll ? "" : rblGroup.SelectedValue;
+            string content = txtContent.Text;
+            long msgId = MassMessage.Send(userName, isToAll, groupId, MassMessageTypeEnum.text, content, out errorMessage);
+            if (errorMessage.IsSuccess)
+            {
+                ltrMessage.Text = "群发消息成功。";
+                rblMassMessage.Items.Add(new ListItem(string.Format("id:{0},text:{1}", msgId, content), msgId.ToString()));
+            }
+            else
+                ltrMessage.Text = string.Format("群发消息失败。{0}", errorMessage);
+        }
+    }
+
+2.2 按OpenId列表群发
+方法定义如下：
+        /// <summary>
+        /// 根据OpenId列表群发消息
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="tousers">OpenId列表</param>
+        /// <param name="messageType">群发消息类型</param>
+        /// <param name="mediaIdOrContent">多媒体id或者文本内容</param>
+        /// <param name="errorMessage">返回发送是否成功</param>
+        /// <returns>如果发送成功，返回消息ID；否则，返回-1。</returns>
+        public static long Send(string userName, IEnumerable<string> tousers, MassMessageTypeEnum messageType, string mediaIdOrContent, out ErrorMessage errorMessage)
+使用示例如下：
+    /// <summary>
+    /// 按用户群发消息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnSendToUsers_Click(object sender, EventArgs e)
+    {
+        if (cblUser.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            ErrorMessage errorMessage;
+            List<string> openIds = new List<string>();
+            foreach (ListItem item in cblUser.Items)
+            {
+                if (item.Selected)
+                    openIds.Add(item.Value);
+            }
+            string content = txtContent.Text;
+            long msgId = MassMessage.Send(userName, openIds, MassMessageTypeEnum.text, content, out errorMessage);
+            if (errorMessage.IsSuccess)
+            {
+                ltrMessage.Text = "群发消息成功。";
+                rblMassMessage.Items.Add(new ListItem(string.Format("id:{0},text:{1}", msgId, content), msgId.ToString()));
+            }
+            else
+                ltrMessage.Text = string.Format("群发消息失败。{0}", errorMessage);
+        }
+    }
+
+3 删除群发
+删除已群发消息的方法定义如下：
+        /// <summary>
+        /// 删除群发消息。
+        /// 注：只能删除图文消息和视频消息。
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="messageId">消息id</param>
+        /// <returns>返回删除是否成功</returns>
+        public static ErrorMessage Delete(string userName, long messageId)
+使用示例如下：
+    /// <summary>
+    /// 删除群发消息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        if (rblMassMessage.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            long msgId = long.Parse(rblMassMessage.SelectedValue);
+            ErrorMessage errorMessage = MassMessage.Delete(userName, msgId);
+            if (errorMessage.IsSuccess)
+            {
+                ltrMessage.Text = "删除消息成功。";
+                rblMassMessage.Items.Remove(rblMassMessage.SelectedItem);
+            }
+            else
+                ltrMessage.Text = string.Format("删除消息失败。{0}", errorMessage);
+        }
+    }
+
+4 预览群发
+预览群发消息的方法定义如下：
+        /// <summary>
+        /// 预览群发消息
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="touser">OpenId</param>
+        /// <param name="messageType">群发消息类型</param>
+        /// <param name="mediaIdOrContent">多媒体id或者文本内容</param>
+        /// <param name="errorMessage">返回发送是否成功</param>
+        /// <returns>如果发送成功，返回消息ID；否则，返回-1。</returns>
+        public static long Preview(string userName, string touser, MassMessageTypeEnum messageType, string mediaIdOrContent, out ErrorMessage errorMessage)
+使用示例如下：
+    /// <summary>
+    /// 预览群发消息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnPreview_Click(object sender, EventArgs e)
+    {
+        if (cblUser.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            ErrorMessage errorMessage;
+            string openId = cblUser.SelectedValue;
+            string content = txtContent.Text;
+            long msgId = MassMessage.Preview(userName, openId, MassMessageTypeEnum.text, content, out errorMessage);
+            if (errorMessage.IsSuccess)
+            {
+                ltrMessage.Text = "预览消息成功。";
+                rblMassMessage.Items.Add(new ListItem(string.Format("id:{0},text:{1}", msgId, content), msgId.ToString()));
+            }
+            else
+                ltrMessage.Text = string.Format("预览消息失败。{0}", errorMessage);
+        }
+    }
+
+5 查询群发消息发送状态
+查询群发消息发送状态的方法定义如下：
+        /// <summary>
+        /// 查询群发消息的发送状态
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="messageId">消息id</param>
+        /// <param name="errorMessage">返回查询是否成功</param>
+        /// <returns>返回消息是否发送成功</returns>
+        public static bool GetStatus(string userName, long messageId, out ErrorMessage errorMessage)
+使用示例如下：
+    /// <summary>
+    /// 查询群发消息状态
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnGetStatus_Click(object sender, EventArgs e)
+    {
+        if (rblMassMessage.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            ErrorMessage errorMessage;
+            long msgId = long.Parse(rblMassMessage.SelectedValue);
+            bool success = MassMessage.GetStatus(userName, msgId, out errorMessage);
+            if (errorMessage.IsSuccess)
+                ltrMessage.Text = string.Format("消息群发{0}。", success ? "成功" : "失败");
+            else
+                ltrMessage.Text = string.Format("获取消息群发状态失败。{0}", errorMessage);
+        }
+    }
+
+6 接收推送群发结果事件
+群发消息之后，微信服务器会推送群发的结果到公众号的指定URL上，公众号服务器会接收到一条RequestMassSendJobFinishMessage类型的请求消息。
+RequestMassSendJobFinishMessage类有以下只读属性：
+        /// <summary>
+        /// 获取消息id
+        /// </summary>
+        public long MsgID { get; private set; }
+        /// <summary>
+        /// 获取群发消息的结果
+        /// </summary>
+        public string Status { get; private set; }
+        /// <summary>
+        /// 获取用户总数
+        /// </summary>
+        public int TotalCount { get; private set; }
+        /// <summary>
+        /// 获取过滤后待发送的用户数
+        /// </summary>
+        public int FilterCount { get; private set; }
+        /// <summary>
+        /// 获取发送成功的用户数
+        /// </summary>
+        public int SentCount { get; private set; }
+        /// <summary>
+        /// 获取发送失败的用户数
+        /// </summary>
+        public int ErrorCount { get; private set; }
+
+        /// <summary>
+        /// 获取消息是否群发成功
+        /// </summary>
+        public bool SendSuccess
+        {
+            get
+            {
+                return Status == sendSuccess;
+            }
+        }
+        /// <summary>
+        /// 获取发送失败的原因
+        /// </summary>
+        public string ErrorReason
+        {
+            get
+            {
+                string reason = string.Empty;
+                if (Status == sendSuccess)
+                    reason = "发送成功";
+                else if (Status == sendFailed)
+                    reason = "发送失败";
+                else if (errorDict.ContainsKey(Status))
+                    reason = errorDict[Status];
+                return reason;
+            }
+        }
+
+感谢您看完本文，希望对您有所帮助。

@@ -1,0 +1,7 @@
+D:\Work\WeixinDev\xrwang.Tuling\bin\Debug\xrwang.Tuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Debug\xrwang.Tuling.pdb
+D:\Work\WeixinDev\xrwang.Tuling\bin\Debug\Newtonsoft.Json.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Debug\Newtonsoft.Json.xml
+D:\Work\WeixinDev\xrwang.Tuling\obj\Debug\xrwang.Tuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\obj\Debug\xrwang.Tuling.pdb
+D:\Work\WeixinDev\xrwang.Tuling\obj\Debug\xrwang.Tuling.csprojResolveAssemblyReference.cache

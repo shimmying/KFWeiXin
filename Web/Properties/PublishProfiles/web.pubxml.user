@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+您 Web 项目的发布/打包进程将使用此文件。您可以通过编辑此 MSBuild 文件
+来自定义该进程的行为。若要了解与此相关的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=208121。
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\Work\A0网站发布\微信测试</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/KFPublicAccount.dll">
+      <publishTime>09/13/2016 16:33:25</publishTime>
+    </File>
+    <File Include="bin/KFPublicLibrary.dll">
+      <publishTime>09/13/2016 16:33:24</publishTime>
+    </File>
+    <File Include="bin/KFTuling.dll">
+      <publishTime>09/13/2016 16:23:00</publishTime>
+    </File>
+    <File Include="bin/KFWeiXinWeb.dll">
+      <publishTime>09/13/2016 16:33:25</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/13/2016 23:06:14</publishTime>
+    </File>
+    <File Include="bin/PublicAccount.dll">
+      <publishTime>09/13/2016 10:14:57</publishTime>
+    </File>
+    <File Include="bin/PublicLibrary.dll">
+      <publishTime>09/12/2016 12:03:20</publishTime>
+    </File>
+    <File Include="bin/Web.dll">
+      <publishTime>09/13/2016 11:35:22</publishTime>
+    </File>
+    <File Include="bin/xrwang.Tuling.dll">
+      <publishTime>09/12/2016 12:03:20</publishTime>
+    </File>
+    <File Include="CheckToken.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/BasicInterface.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Example/CustomerService.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Example/DataStatistics.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Example/Default.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/MassMessage.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/Menu.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/Meterial.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Example/ParseRequestMessage.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/Semantic.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/Subscribe.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Example/TemplateMessage.aspx">
+      <publishTime>09/13/2016 16:31:54</publishTime>
+    </File>
+    <File Include="Example/UserManagement.aspx">
+      <publishTime>09/13/2016 16:31:51</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>09/13/2016 16:30:31</publishTime>
+    </File>
+    <File Include="Index.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="js/jquery-1.11.2.min.js">
+      <publishTime>09/12/2016 16:23:05</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>09/12/2016 17:40:47</publishTime>
+    </File>
+    <File Include="Test.aspx">
+      <publishTime>09/13/2016 16:31:53</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>09/12/2016 12:03:21</publishTime>
+    </File>
+    <File Include="WeixinInterface.ashx">
+      <publishTime>09/13/2016 16:31:44</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

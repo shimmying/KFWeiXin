@@ -1,0 +1,9 @@
+D:\Work\WeixinDev\PublicAccount\obj\Debug\xrwang.weixin.PublicAccount.csprojResolveAssemblyReference.cache
+D:\Work\WeixinDev\PublicAccount\bin\Debug\PublicAccount.dll
+D:\Work\WeixinDev\PublicAccount\bin\Debug\PublicAccount.pdb
+D:\Work\WeixinDev\PublicAccount\bin\Debug\Newtonsoft.Json.dll
+D:\Work\WeixinDev\PublicAccount\bin\Debug\PublicLibrary.dll
+D:\Work\WeixinDev\PublicAccount\bin\Debug\PublicLibrary.pdb
+D:\Work\WeixinDev\PublicAccount\bin\Debug\Newtonsoft.Json.xml
+D:\Work\WeixinDev\PublicAccount\obj\Debug\PublicAccount.dll
+D:\Work\WeixinDev\PublicAccount\obj\Debug\PublicAccount.pdb

@@ -1,0 +1,5 @@
+D:\Work\WeixinDev\PublicLibrary\bin\Release\PublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\bin\Release\PublicLibrary.pdb
+D:\Work\WeixinDev\PublicLibrary\obj\Release\PublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\obj\Release\PublicLibrary.pdb
+D:\Work\WeixinDev\PublicLibrary\obj\Release\xrwang.PublicLibrary.csprojResolveAssemblyReference.cache

@@ -1,0 +1,14 @@
+D:\Work\WeixinDev\Web\bin\Web.dll.config
+D:\Work\WeixinDev\Web\bin\Web.dll
+D:\Work\WeixinDev\Web\bin\Web.pdb
+D:\Work\WeixinDev\Web\bin\PublicLibrary.dll
+D:\Work\WeixinDev\Web\bin\Newtonsoft.Json.dll
+D:\Work\WeixinDev\Web\bin\PublicLibrary.pdb
+D:\Work\WeixinDev\Web\bin\Newtonsoft.Json.xml
+D:\Work\WeixinDev\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
+D:\Work\WeixinDev\Web\obj\Debug\Web.dll
+D:\Work\WeixinDev\Web\obj\Debug\Web.pdb
+D:\Work\WeixinDev\Web\bin\KFPublicAccount.dll
+D:\Work\WeixinDev\Web\bin\KFTuling.dll
+D:\Work\WeixinDev\Web\bin\KFPublicAccount.pdb
+D:\Work\WeixinDev\Web\bin\KFTuling.pdb

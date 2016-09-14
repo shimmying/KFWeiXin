@@ -1,0 +1,6 @@
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\KFTuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\KFTuling.pdb
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\Newtonsoft.Json.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\Newtonsoft.Json.xml
+D:\Work\WeixinDev\xrwang.Tuling\obj\Release\KFTuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\obj\Release\KFTuling.pdb

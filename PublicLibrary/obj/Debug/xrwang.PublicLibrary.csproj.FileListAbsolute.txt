@@ -1,0 +1,4 @@
+D:\Work\WeixinDev\PublicLibrary\bin\Debug\PublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\bin\Debug\PublicLibrary.pdb
+D:\Work\WeixinDev\PublicLibrary\obj\Debug\PublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\obj\Debug\PublicLibrary.pdb

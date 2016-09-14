@@ -1,0 +1,9 @@
+D:\Work\WeixinDev\PublicAccount\bin\Release\KFPublicAccount.dll
+D:\Work\WeixinDev\PublicAccount\bin\Release\KFPublicAccount.pdb
+D:\Work\WeixinDev\PublicAccount\bin\Release\Newtonsoft.Json.dll
+D:\Work\WeixinDev\PublicAccount\bin\Release\Newtonsoft.Json.xml
+D:\Work\WeixinDev\PublicAccount\obj\Release\KFPublicAccount.csprojResolveAssemblyReference.cache
+D:\Work\WeixinDev\PublicAccount\obj\Release\KFPublicAccount.dll
+D:\Work\WeixinDev\PublicAccount\obj\Release\KFPublicAccount.pdb
+D:\Work\WeixinDev\PublicAccount\bin\Release\KFPublicLibrary.dll
+D:\Work\WeixinDev\PublicAccount\bin\Release\KFPublicLibrary.pdb

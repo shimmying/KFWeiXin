@@ -1,0 +1,4 @@
+D:\Work\WeixinDev\PublicLibrary\bin\Release\KFPublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\bin\Release\KFPublicLibrary.pdb
+D:\Work\WeixinDev\PublicLibrary\obj\Release\KFPublicLibrary.dll
+D:\Work\WeixinDev\PublicLibrary\obj\Release\KFPublicLibrary.pdb

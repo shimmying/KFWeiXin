@@ -1,0 +1,176 @@
+﻿.net微信公众号开发——模板消息
+作者：王先荣
+本文介绍微信公众号中的模板消息，包括以下内容：（1）TemplateMessage类简介；（2）设置所属行业；（3）获得模板id；（4）发送模板消息；（5）接收推送模板消息发送结果事件。
+本文演示地址：http://xrwang.net/Example/TemplateMessage.aspx
+本文源代码地址：
+http://git.oschina.net/xrwang2/xrwang.weixin.PublicAccount/tree/master/PublicAccount/TemplateMessage
+http://git.oschina.net/xrwang2/xrwang.weixin.PublicAccount/blob/master/xrwang.net/Example/TemplateMessage.aspx.cs
+
+1 TemplateMessage类简介
+TemplateMessage静态类封装了跟模板消息相关的方法，见下表：
+SetIndustry 设置行业
+GetId 获取模板id
+Send 发送模板消息
+
+2 设置所属行业
+TemplateMessage类的SetIndustry方法用于设置公众号所属的行业，该方法的定义如下：
+        /// <summary>
+        /// 设置行业
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="code1">行业代码1</param>
+        /// <param name="code2">行业代码2</param>
+        /// <returns>返回设置是否成功</returns>
+        public static ErrorMessage SetIndustry(string userName, string code1, string code2)
+
+		//或者
+		/// <summary>
+        /// 设置行业
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="industry1">行业1</param>
+        /// <param name="industry2">行业2</param>
+        /// <returns>返回设置是否成功</returns>
+        public static ErrorMessage SetIndustry(string userName, Industry industry1, Industry industry2)
+其中，Industry为行业类，类中的静态成员包含了已知的所有行业，例如：Industry.OnlineGame代表了网络游戏这一行业；Industry类有三个属性，分别为：Code——行业代码，Name——行业名称，PrimaryIndustry——主行业。
+设置所属行业的示例：
+    /// <summary>
+    /// 设置所属行业
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnSetIndustry_Click(object sender, EventArgs e)
+    {
+        string userName = lbPublicAccount.SelectedValue;
+        string industryCode1 = "", industryCode2 = "";
+        int count = 0;
+        foreach (ListItem item in cblIndustry.Items)
+        {
+            if (item.Selected)
+            {
+                count++;
+                if (count == 1)
+                    industryCode1 = item.Value;
+                else if (count == 2)
+                {
+                    industryCode2 = item.Value;
+                    break;
+                }
+            }
+        }
+        if (count != 2)
+            ltrMessage.Text = "请选择两个行业。";
+        else
+        {
+            ErrorMessage errorMessage = TemplateMessage.SetIndustry(userName, industryCode1, industryCode2);
+            ltrMessage.Text = string.Format("设置所属行业{0}。{1}",
+                errorMessage.IsSuccess ? "成功" : "失败",
+                errorMessage.IsSuccess ? "" : errorMessage.ToString());
+        }
+    }
+
+3 获得模板id
+TemplateMessage类的GetId方法用于获取模板id，该方法定义如下：
+        /// <summary>
+        /// 获取模板ID
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="shortTemplateId">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
+        /// <param name="errorMessage">返回获取是否成功</param>
+        /// <returns>返回模板ID；如果获取失败，返回空字符串。</returns>
+        public static string GetId(string userName, string shortTemplateId, out ErrorMessage errorMessage)
+注意：（1）如果尚未添加模板，该方法会先添加模板，然后返回模板id；（2）如果已经添加了模板，再次调用该方法，会返回一个新的不同于上次获取到的模板id。
+获得模板id的示例：
+    /// <summary>
+    /// 添加并模板id
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnGetTemplateId_Click(object sender, EventArgs e)
+    {
+        string userName = lbPublicAccount.SelectedValue;
+        ErrorMessage errorMessage;
+        string templateId = TemplateMessage.GetId(userName, txtTemplateIdShort.Text, out errorMessage);
+        if (errorMessage.IsSuccess)
+            ltrMessage.Text = string.Format("添加并获取模板id成功。模板id：{0}", templateId);
+        else
+            ltrMessage.Text = string.Format("添加并获取模板id失败。{0}", errorMessage.ToString());
+    }
+
+4 发送模板消息
+TemplateMessage类的Send方法用于发送模板消息，该方法定义如下：
+        /// <summary>
+        /// 发送模板消息
+        /// </summary>
+        /// <param name="userName">公众号</param>
+        /// <param name="touser">接收消息的账号</param>
+        /// <param name="templateId">模板id</param>
+        /// <param name="detailUrl">详情地址</param>
+        /// <param name="topColor">顶端颜色</param>
+        /// <param name="data">数据</param>
+        /// <param name="errorMessage">返回发送是否成功</param>
+        /// <returns>返回消息id；如果发送失败，返回-1。</returns>
+        public static long Send(string userName, string touser, string templateId, string detailUrl, Color topColor,
+            Tuple<string, string, Color>[] data, out ErrorMessage errorMessage)
+其中，data参数为Tuple类型，包含模板所用的数据，data.Item1为数据键，data.Item2为数据值，data.Item3为显示数据的颜色。
+发送模板消息的示例：
+    /// <summary>
+    /// 发送模板消息
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    protected void btnSend_Click(object sender, EventArgs e)
+    {
+        if (rblUser.SelectedIndex >= 0)
+        {
+            string userName = lbPublicAccount.SelectedValue;
+            string openId = rblUser.SelectedValue;
+            string templateId = "z8zHvTm2gpU0gZUBwA0dXibMO_VYy6iwJYgtW6qeyPg";
+            string title = txtTitle.Text;
+            string name = txtUserName.Text;
+            string time = DateTime.Now.ToString();
+            Tuple<string, string, Color>[] data = new Tuple<string, string, Color>[]{
+                new Tuple<string,string,Color>("title",title,Color.Blue),
+                new Tuple<string,string,Color>("username",name,Color.Green),
+                new Tuple<string,string,Color>("time",time,Color.Red)
+            };
+            ErrorMessage errorMessage;
+            long msgId = TemplateMessage.Send(userName, rblUser.SelectedValue, templateId, "", Color.Black, data, out errorMessage);
+            if (errorMessage.IsSuccess)
+                ltrMessage.Text = string.Format("发送模板消息成功。消息id：{0}", msgId);
+            else
+                ltrMessage.Text = string.Format("发送模板消息失败。{0}", errorMessage);
+        }
+    }
+
+5 接收推送模板消息发送结果事件
+在发送模板消息之后，微信服务器会推送结果到公众号的指定URL上，公众号服务器会接收到一条RequestTemplateSendJobFinishMessage类型的请求消息。
+RequestTemplateSendJobFinishMessage类有以下只读属性：
+        /// <summary>
+        /// 获取消息id
+        /// </summary>
+        public long MsgID { get; private set; }
+        /// <summary>
+        /// 获取群发消息的结果
+        /// </summary>
+        public string Status { get; private set; }
+
+        /// <summary>
+        /// 获取消息是否群发成功
+        /// </summary>
+        public TemplateMessageSendStatusEnum SendStatus
+        {
+            get
+            {
+                TemplateMessageSendStatusEnum status;
+                if (Status == sendFailedUserBlock)
+                    status = TemplateMessageSendStatusEnum.UserBlock;
+                else if (Status == sendFailedSystemFailed)
+                    status = TemplateMessageSendStatusEnum.SystemFailed;
+                else
+                    status = TemplateMessageSendStatusEnum.Success;
+                return status;
+            }
+        }
+
+感谢您看完本文，希望对您有所帮助。

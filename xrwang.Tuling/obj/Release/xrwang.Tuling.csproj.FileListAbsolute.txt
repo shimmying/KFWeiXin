@@ -1,0 +1,6 @@
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\xrwang.Tuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\xrwang.Tuling.pdb
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\Newtonsoft.Json.dll
+D:\Work\WeixinDev\xrwang.Tuling\bin\Release\Newtonsoft.Json.xml
+D:\Work\WeixinDev\xrwang.Tuling\obj\Release\xrwang.Tuling.dll
+D:\Work\WeixinDev\xrwang.Tuling\obj\Release\xrwang.Tuling.pdb
